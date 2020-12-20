@@ -92,5 +92,17 @@ namespace AddressBookRestSharpAPI
             Assert.AreEqual(dataResponse.city, "Machilipatnam");
 
         }
+
+        [TestMethod]
+        public void DeletePersonInJsonServer()
+        {
+            RestRequest request = new RestRequest("/person/2", Method.DELETE);
+            IRestResponse response = client.Execute(request);
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+            IRestResponse restResponse = GetPersonList();
+            Assert.AreEqual(restResponse.StatusCode, HttpStatusCode.OK);
+            List<Person> dataResponse = JsonConvert.DeserializeObject<List<Person>>(restResponse.Content);
+            Assert.AreEqual(6, dataResponse.Count);
+        }
     }
 }
