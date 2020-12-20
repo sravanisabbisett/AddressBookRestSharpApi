@@ -67,5 +67,30 @@ namespace AddressBookRestSharpAPI
             }
 
         }
+
+        /// <summary>
+        /// Updates the person should return updated data.
+        /// </summary>
+        [TestMethod]
+        public void UpdatePersonShouldReturnUpdatedData()
+        {
+            RestRequest request = new RestRequest("/person/1", Method.PUT);
+            JObject jObjectBody = new JObject();
+            jObjectBody.Add("firstname", "sravani");
+            jObjectBody.Add("lastname", "sabbisetti");
+            jObjectBody.Add("address", "GandhiChowk");
+            jObjectBody.Add("city", "Machilipatnam");
+            jObjectBody.Add("state", "AndhraPradesh");
+            jObjectBody.Add("zip", 521324);
+            jObjectBody.Add("mobilenumber", 8712443377);
+            request.AddParameter("application/json", jObjectBody, ParameterType.RequestBody);
+            //act
+            IRestResponse response = client.Execute(request);
+            //assert
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+            Person dataResponse = JsonConvert.DeserializeObject<Person>(response.Content);
+            Assert.AreEqual(dataResponse.city, "Machilipatnam");
+
+        }
     }
 }
