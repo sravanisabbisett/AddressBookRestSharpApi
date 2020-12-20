@@ -12,7 +12,7 @@ namespace AddressBookRestSharpAPI
         public string city { get; set; }
         public string state { get; set; }
         public int zip { get; set; }
-        public int mobileNumber { get; set; }
+        public double mobileNumber { get; set; }
         public int id { get; set; }
     }
 }
